@@ -2,7 +2,7 @@ import briefcase from "./assets/briefcase.svg";
 import command from "./assets/command.svg";
 import folder from "./assets/folder.svg";
 import dashGrid from "./assets/grid.svg";
-import illustration from "./assets/illustration.png";
+import illustration from "./assets/Illustration.png";
 import logo from "./assets/logo.svg";
 import phone from "./assets/phone.svg";
 import settings from "./assets/settings.svg";
