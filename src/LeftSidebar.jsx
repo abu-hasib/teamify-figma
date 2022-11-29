@@ -8,9 +8,14 @@ import phone from "./assets/phone.svg";
 import settings from "./assets/settings.svg";
 import users from "./assets/users.svg";
 
-export const Sidebar = () => {
+export const LeftSidebar = ({ open }) => {
+  console.log("$$: ", open?.left);
   return (
-    <aside className="flex flex-col sidebar justify-evenly py-8">
+    <aside
+      className={`absolute z-10 inset-0 w-[25%] transition-all ${
+        open?.left ? "" : "-translate-x-full"
+      } xl:hidden flex flex-col bg-[#f9f9f9] justify-evenly py-8`}
+    >
       <div className="brand flex px-6 pb-6">
         <span className="mr-4">
           <img src={logo} alt="logo" />
@@ -19,7 +24,7 @@ export const Sidebar = () => {
           <a href="#">Teamify</a>
         </h1>
       </div>
-      <nav className={`flow text-lg px-6 w-72 text-start `}>
+      <nav className={`flow text-lg px-6 w-72 text-start`}>
         <ul className="font-medium text-[#878787] flow py-8 [--flow-space:2rem]">
           <li className="flex items-center text-[#6956E5]">
             <span className="mr-4">

@@ -1,4 +1,4 @@
-import React, { PureComponent, useState } from "react";
+import React, { PureComponent, useLayoutEffect, useState } from "react";
 import "./App.css";
 import { Sidebar } from "./Sidebar";
 import searchIcon from "./assets/search.svg";
@@ -17,33 +17,57 @@ import {
   ResponsiveContainer,
   CartesianAxis,
 } from "recharts";
+import { LeftSidebar } from "./LeftSidebar";
 
 const App = () => {
   const [count, setCount] = useState(0);
+  const [open, setOpen] = useState({
+    right: false,
+    left: false,
+  });
+  useLayoutEffect(() => {
+    console.log("here...");
+  });
 
   return (
-    <div className="App flex h-screen">
-      <Sidebar />
-      <Dashboard />
+    <div className="relative">
+      <button
+        className="xl:hidden absolute z-50"
+        onClick={() => setOpen({ left: !open.left })}
+      >
+        =
+      </button>
+      <button
+        className="xl:hidden absolute z-50 right-0"
+        onClick={() => setOpen({ right: !open.right })}
+      >
+        =
+      </button>
+      <div className="App flex justify-center h-screen">
+        <LeftSidebar open={open} />
+        <Sidebar open={open} />
+        <Dashboard open={open} />
+      </div>
     </div>
   );
 };
 
-const Dashboard = () => {
+const Dashboard = ({ open }) => {
   return (
-    <div className="flex flex-col gap-8 w-full p-8">
+    <div className="flex flex-col gap-4 w-full px-8 py-2">
       <TopBar />
-      <All />
+      <All openSide={open} />
     </div>
   );
 };
 
-const All = () => {
+const All = ({ openSide }) => {
   const [open, setOpen] = useState(false);
 
+  console.log(openSide);
   return (
-    <main className="grid grid-cols-3 grid-rows-2 gap-8 h-full">
-      <section className="h-[344px] border border-[hsla(220, 14%, 91%, 1)] rounded-[10px] p-6 text-start">
+    <main className="grid grid-cols-3 grid-rows-5 gap-8 main">
+      <section className="border border-[hsla(220, 14%, 91%, 1)] rounded-[10px] p-6 text-start row-span-2">
         <h2 className="text-lg font-bold">Teams Strength</h2>
         <div className="flex items-end justify-between h-1/2 my-8">
           <div className="text-center">
@@ -96,7 +120,7 @@ const All = () => {
           </div>
         </div>
       </section>
-      <section className="h-[344px] border border-[hsla(220, 14%, 91%, 1)] rounded-[10px] p-6 text-start">
+      <section className="border border-[hsla(220, 14%, 91%, 1)] rounded-[10px] p-6 text-start row-span-2">
         <div className="flex justify-between items-end">
           <h2 className="text-lg font-bold">Employees</h2>
           <div className="flex items-center">
@@ -160,30 +184,8 @@ const All = () => {
           </div>
         </div>
       </section>
-      <section className="flex flex-col gap-4 h-[344px] justify-center items-center">
-        <div className="grid place-items-center w-full h-[103px] bg-[#FFF0E6] rounded-lg py-2">
-          <h3 className="text-xl font-bold">Top 10</h3>
-          <p className="text-sm font-medium">Position in dribbble</p>
-          <p className="text-xs text-[#787486] font-medium">
-            20% Increase from Last Week
-          </p>
-        </div>
-        <div className="grid place-items-center w-full h-[103px] bg-[#ECEAFE] rounded-lg py-2">
-          <h3 className="text-xl font-bold">Top 10</h3>
-          <p className="text-sm font-medium">Position in dribbble</p>
-          <p className="text-xs text-[#787486] font-medium">
-            20% Increase from Last Week
-          </p>
-        </div>
-        <div className="grid place-items-center w-full h-[103px] bg-[#E5F7FF] rounded-lg py-2">
-          <h3 className="text-xl font-bold">Top 10</h3>
-          <p className="text-sm font-medium">Position in dribbble</p>
-          <p className="text-xs text-[#787486] font-medium">
-            20% Increase from Last Week
-          </p>
-        </div>
-      </section>
-      <section className="border border-[hsla(220, 14%, 91%, 1)] rounded-[10px] p-6 text-start col-span-2">
+
+      <section className="chart-container rounded-[10px] px-6 py-8 text-start col-span-2 row-span-3">
         <div className="flex justify-between">
           <h2 className="text-lg font-bold">Project Deliveries</h2>
           <div className="flex gap-10">
@@ -197,73 +199,108 @@ const All = () => {
             </p>
           </div>
         </div>
-        <Chart />
-      </section>
-      <section className="flex flex-col gap-4">
-        <div className="flex justify-between">
-          <h2 className="text-lg font-bold">Notifications</h2>
-          <a href="#" className="text-[#6956E5]">
-            View all
-          </a>
-        </div>
-        <div className="flex items-center gap-2 w-full h-[56px] bg-[#F9F9F9] rounded-lg p-2">
-          <div className="w-[36px] h-[36px]">
-            <img src={employee} alt="avatar" />
-          </div>
-          <div className="text-start">
-            <p className="text-xs font-medium">Ellie joined team developers</p>
-            <p className="text-[10px] text-[#708099]">
-              04 April, 2021 | 04:00 PM
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center gap-2 w-full h-[56px] bg-[#F9F9F9] rounded-lg p-2">
-          <div className="w-[36px] h-[36px]">
-            <img src={employee} alt="avatar" />
-          </div>
-          <div className="text-start">
-            <p className="text-xs font-medium">Jenny joined team HR</p>
-            <p className="text-[10px] text-[#708099]">
-              04 April, 2021 | 04:00 PM
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center gap-2 w-full h-[56px] bg-[#F9F9F9] rounded-lg p-2">
-          <div className="w-[36px] h-[36px]">
-            <img src={employee} alt="avatar" />
-          </div>
-          <div className="text-start">
-            <p className="text-xs font-medium">
-              Adam got employee of the month
-            </p>
-            <p className="text-[10px] text-[#708099]">
-              04 April, 2021 | 04:00 PM
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center gap-2 w-full h-[56px] bg-[#F9F9F9] rounded-lg p-2">
-          <div className="w-[36px] h-[36px]">
-            <img src={employee} alt="avatar" />
-          </div>
-          <div className="text-start">
-            <p className="text-xs font-medium">Robert joined team design</p>
-            <p className="text-[10px] text-[#708099]">
-              04 April, 2021 | 04:00 PM
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center gap-2 w-full h-[56px] bg-[#F9F9F9] rounded-lg p-2">
-          <div className="w-[36px] h-[36px]">
-            <img src={employee} alt="avatar" />
-          </div>
-          <div className="text-start">
-            <p className="text-xs font-medium">Jack joined team design</p>
-            <p className="text-[10px] text-[#708099]">
-              04 April, 2021 | 04:00 PM
-            </p>
-          </div>
+        <div className="chart">
+          <Chart />
         </div>
       </section>
+      <div
+        className={`lg:row-span-full lg:col-start-3 flex flex-col ${
+          openSide?.right
+            ? "right"
+            : "absolute z-10 inset-0 w-[25%] transition-all"
+        }`}
+      >
+        <section className="flex flex-col gap-4 justify-between items-center">
+          <div className="grid place-items-center w-full h-[103px] bg-[#FFF0E6] rounded-lg py-2">
+            <h3 className="text-xl font-bold">Top 10</h3>
+            <p className="text-sm font-medium">Position in dribbble</p>
+            <p className="text-xs text-[#787486] font-medium">
+              20% Increase from Last Week
+            </p>
+          </div>
+          <div className="grid place-items-center w-full h-[103px] bg-[#ECEAFE] rounded-lg py-2">
+            <h3 className="text-xl font-bold">Top 10</h3>
+            <p className="text-sm font-medium">Position in dribbble</p>
+            <p className="text-xs text-[#787486] font-medium">
+              20% Increase from Last Week
+            </p>
+          </div>
+          <div className="grid place-items-center w-full h-[103px] bg-[#E5F7FF] rounded-lg py-2">
+            <h3 className="text-xl font-bold">Top 10</h3>
+            <p className="text-sm font-medium">Position in dribbble</p>
+            <p className="text-xs text-[#787486] font-medium">
+              20% Increase from Last Week
+            </p>
+          </div>
+        </section>
+        <section className="flex flex-col gap-4">
+          <div className="flex justify-between">
+            <h2 className="text-lg font-bold">Notifications</h2>
+            <a href="#" className="text-[#6956E5]">
+              View all
+            </a>
+          </div>
+          <div className="flex items-center gap-2 w-full h-[56px] bg-[#F9F9F9] rounded-lg p-2">
+            <div className="w-[36px] h-[36px]">
+              <img src={employee} alt="avatar" />
+            </div>
+            <div className="text-start">
+              <p className="text-xs font-medium">
+                Ellie joined team developers
+              </p>
+              <p className="text-[10px] text-[#708099]">
+                04 April, 2021 | 04:00 PM
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 w-full h-[56px] bg-[#F9F9F9] rounded-lg p-2">
+            <div className="w-[36px] h-[36px]">
+              <img src={employee} alt="avatar" />
+            </div>
+            <div className="text-start">
+              <p className="text-xs font-medium">Jenny joined team HR</p>
+              <p className="text-[10px] text-[#708099]">
+                04 April, 2021 | 04:00 PM
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 w-full h-[56px] bg-[#F9F9F9] rounded-lg p-2">
+            <div className="w-[36px] h-[36px]">
+              <img src={employee} alt="avatar" />
+            </div>
+            <div className="text-start">
+              <p className="text-xs font-medium">
+                Adam got employee of the month
+              </p>
+              <p className="text-[10px] text-[#708099]">
+                04 April, 2021 | 04:00 PM
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 w-full h-[56px] bg-[#F9F9F9] rounded-lg p-2">
+            <div className="w-[36px] h-[36px]">
+              <img src={employee} alt="avatar" />
+            </div>
+            <div className="text-start">
+              <p className="text-xs font-medium">Robert joined team design</p>
+              <p className="text-[10px] text-[#708099]">
+                04 April, 2021 | 04:00 PM
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 w-full h-[56px] bg-[#F9F9F9] rounded-lg p-2">
+            <div className="w-[36px] h-[36px]">
+              <img src={employee} alt="avatar" />
+            </div>
+            <div className="text-start">
+              <p className="text-xs font-medium">Jack joined team design</p>
+              <p className="text-[10px] text-[#708099]">
+                04 April, 2021 | 04:00 PM
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
   );
 };

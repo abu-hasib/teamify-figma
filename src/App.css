@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  justify-content: center;
 }
 
 .App-logo {
@@ -49,10 +49,34 @@ button {
   background-color: #f9f9f9;
 }
 
+@media (max-width: 1200px) {
+  .sidebar {
+    display: none;
+  }
+  .right {
+    display: none;
+  }
+  main > *:nth-child(3) {
+    grid-column: span 3;
+  }
+}
 .tip {
   width: 26px;
   height: 26px;
   position: absolute;
   inset: 0;
   clip-path: polygon(0 0, 100% 0, 49% 100%);
+}
+
+.chart-container {
+  box-shadow: 0px 4px 39px 9px rgba(81, 69, 159, 0.09);
+  background-color: #fff;
+}
+
+.chart {
+  height: calc(100% - 38px);
+}
+
+.main {
+  height: calc(100% - 69px);
 }
