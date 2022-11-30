@@ -18,6 +18,7 @@ import {
   CartesianAxis,
 } from "recharts";
 import { LeftSidebar } from "./LeftSidebar";
+import RightSidebar from "./RightSidebar";
 
 const App = () => {
   const [count, setCount] = useState(0);
@@ -35,18 +36,47 @@ const App = () => {
         className="xl:hidden absolute z-50"
         onClick={() => setOpen({ left: !open.left })}
       >
-        =
+        {open.left ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            style={{ fill: "rgba(0, 0, 0, 1);transform: ;msFilter:;" }}
+          >
+            <path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path>
+          </svg>
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            style={{ fill: "rgba(0, 0, 0, 1);transform: ;msFilter:;" }}
+          >
+            <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path>
+          </svg>
+        )}
       </button>
       <button
         className="xl:hidden absolute z-50 right-0"
         onClick={() => setOpen({ right: !open.right })}
       >
-        =
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          style={{ fill: "rgba(0, 0, 0, 1);transform: ;msFilter:;" }}
+        >
+          <path d="M7 11h10v2H7zM4 7h16v2H4zm6 8h4v2h-4z"></path>
+        </svg>
       </button>
       <div className="App flex justify-center h-screen">
         <LeftSidebar open={open} />
+        <RightSidebar open={open} />
         <Sidebar open={open} />
-        <Dashboard open={open} />
+        <Dashboard />
       </div>
     </div>
   );
@@ -66,10 +96,10 @@ const All = ({ openSide }) => {
 
   console.log(openSide);
   return (
-    <main className="grid grid-cols-3 grid-rows-5 gap-8 main">
-      <section className="border border-[hsla(220, 14%, 91%, 1)] rounded-[10px] p-6 text-start row-span-2">
+    <main className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:grid-rows-5 gap-8 main">
+      <section className="border border-[hsla(220, 14%, 91%, 1)] rounded-[10px] p-4 text-start row-span-2">
         <h2 className="text-lg font-bold">Teams Strength</h2>
-        <div className="flex items-end justify-between h-1/2 my-8">
+        <div className="flex items-end justify-between h-1/2 my-4">
           <div className="text-center">
             <p>1</p>
             <p className="w-[65px] h-[21px] bg-[#FABE7A] rounded-t-lg"></p>
@@ -92,7 +122,7 @@ const All = ({ openSide }) => {
           </div>
         </div>
 
-        <div className="flex flex-wrap flex-col gap-4 h-16">
+        <div className="flex flex-wrap justify-between md:flex-col gap-2 h-16">
           <div className="text-[#828282]">
             <span className="bg-[#FABE7A] text-white rounded-[4px] w-7 h-[26px] px-2 py-0.5 mr-2">
               a
@@ -185,7 +215,7 @@ const All = ({ openSide }) => {
         </div>
       </section>
 
-      <section className="chart-container rounded-[10px] px-6 py-8 text-start col-span-2 row-span-3">
+      <section className="chart-container rounded-[10px] px-6 py-8 text-start col-span-1 md:col-span-2 xl:col-span-2 md:row-span-3">
         <div className="flex justify-between">
           <h2 className="text-lg font-bold">Project Deliveries</h2>
           <div className="flex gap-10">
@@ -204,11 +234,7 @@ const All = ({ openSide }) => {
         </div>
       </section>
       <div
-        className={`lg:row-span-full lg:col-start-3 flex flex-col ${
-          openSide?.right
-            ? "right"
-            : "absolute z-10 inset-0 w-[25%] transition-all"
-        }`}
+        className={`lg:row-span-full lg:col-start-3 flex flex-col transition-all right`}
       >
         <section className="flex flex-col gap-4 justify-between items-center">
           <div className="grid place-items-center w-full h-[103px] bg-[#FFF0E6] rounded-lg py-2">

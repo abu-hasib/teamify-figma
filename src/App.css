@@ -49,16 +49,16 @@ button {
   background-color: #f9f9f9;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
   .sidebar {
     display: none;
   }
   .right {
     display: none;
   }
-  main > *:nth-child(3) {
+  /* main > *:nth-child(3) {
     grid-column: span 3;
-  }
+  } */
 }
 .tip {
   width: 26px;

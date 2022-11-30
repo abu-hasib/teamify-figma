@@ -12,7 +12,7 @@ export const LeftSidebar = ({ open }) => {
   console.log("$$: ", open?.left);
   return (
     <aside
-      className={`absolute z-10 inset-0 w-[25%] transition-all ${
+      className={`absolute z-10 inset-0 w-[40%] md:w-[25%] transition-all ${
         open?.left ? "" : "-translate-x-full"
       } xl:hidden flex flex-col bg-[#f9f9f9] justify-evenly py-8`}
     >
@@ -51,7 +51,7 @@ export const LeftSidebar = ({ open }) => {
             <a href="">Projects</a>
           </li>
         </ul>
-        <div className="w-[218px] bg-[#878787] h-0.5 border "></div>
+        <div className="w-[80%] bg-[#878787] h-0.5 border"></div>
         <ul className="font-medium text-[#878787] flow [--flow-space:2rem]">
           <li className="flex items-center">
             <span className="mr-4">
