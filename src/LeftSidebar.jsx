@@ -9,10 +9,9 @@ import settings from "./assets/settings.svg";
 import users from "./assets/users.svg";
 
 export const LeftSidebar = ({ open }) => {
-  console.log("$$: ", open?.left);
   return (
     <aside
-      className={`absolute z-10 inset-0 w-[40%] md:w-[25%] transition-all ${
+      className={`absolute z-10 inset-0 w-[50%] md:w-[25%] transition-all ${
         open?.left ? "" : "-translate-x-full"
       } xl:hidden flex flex-col bg-[#f9f9f9] justify-evenly py-8`}
     >

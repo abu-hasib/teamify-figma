@@ -33,7 +33,7 @@ const App = () => {
   return (
     <div className="relative">
       <button
-        className="xl:hidden absolute z-50"
+        className="xl:hidden absolute left-1 top-3 z-50"
         onClick={() => setOpen({ left: !open.left })}
       >
         {open.left ? (
@@ -59,7 +59,7 @@ const App = () => {
         )}
       </button>
       <button
-        className="xl:hidden absolute z-50 right-0"
+        className="xl:hidden absolute z-50 right-1 top-3"
         onClick={() => setOpen({ right: !open.right })}
       >
         <svg
@@ -186,7 +186,7 @@ const All = ({ openSide }) => {
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <div className="flex flex-col h-full gap-10 mt-8">
+          <div className="flex flex-col h-full gap-10 mt-4">
             <div>
               <p>
                 <span className="bg-[#6956E5] w-[10px] h-[10px] inline-block rounded-full mr-1"></span>
@@ -485,7 +485,7 @@ const TopBar = () => {
   return (
     <header className="flex justify-between">
       <div className="text-start">
-        <h1 className="font-bold text-2xl">Good Morning Anima</h1>
+        <h1 className="font-bold text-xl xl:text-2xl">Good Morning Anima</h1>
         <p>Hope you have a good day</p>
       </div>
       <div className="flex items-center justify-around w-1/4">
